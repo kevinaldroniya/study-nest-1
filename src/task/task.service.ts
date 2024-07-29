@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Task, TaskStatus } from './task.model';
 import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
@@ -15,8 +19,7 @@ export class TaskService {
   private readTasksFromFile(): Task[] {
     // console.log(`Checking file existence at: ${this.tasksFilePath}`);
     if (!fs.existsSync(this.tasksFilePath)) {
-      console.log('ok');
-      return [];
+      throw new InternalServerErrorException();
     }
     const fileContent = fs.readFileSync(this.tasksFilePath, 'utf-8');
     return JSON.parse(fileContent) as Task[];
@@ -31,12 +34,24 @@ export class TaskService {
   }
 
   getAllTasks(): Task[] {
-    return this.readTasksFromFile();
+    try {
+      const tasks = this.readTasksFromFile();
+      return tasks;
+    } catch (error) {
+      const message = error.message;
+      console.log({ message });
+      throw new InternalServerErrorException();
+    }
   }
 
   getTaskById(id: string): Task {
     const tasks = this.readTasksFromFile();
-    return tasks.find((task) => task.id === id);
+    console.log({ tasks });
+    const task = tasks.find((task) => task.id === id);
+    if (!task) {
+      throw new NotFoundException(`Task with ID: ${id}, not found`);
+    }
+    return task;
   }
 
   createTask(title: string, description: string): Task {
