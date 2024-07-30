@@ -26,6 +26,9 @@ export class TaskService {
   }
 
   private writeTasksToFile(tasks: Task[]): void {
+    if (!fs.existsSync(this.tasksFilePath)) {
+      throw new InternalServerErrorException();
+    }
     fs.writeFileSync(
       this.tasksFilePath,
       JSON.stringify(tasks, null, 2),
@@ -70,10 +73,12 @@ export class TaskService {
   updateTaskStatus(id: string, status: TaskStatus): Task {
     const tasks = this.readTasksFromFile();
     const task = tasks.find((task) => task.id === id);
-    if (task) {
-      task.status = status;
-      this.writeTasksToFile(tasks);
+    if (!task) {
+      console.log('ok');
+      throw new NotFoundException(`Task with given ID: ${id}, not found`);
     }
+    task.status = status;
+    this.writeTasksToFile(tasks);
     return task;
   }
 

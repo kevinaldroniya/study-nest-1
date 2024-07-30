@@ -9,6 +9,42 @@
     "id": "882a751d-e541-464e-9ba2-4e2098f734c8",
     "title": "Sample Task",
     "description": "This is a sample task",
+    "status": "IN_PROGRESS"
+  },
+  {
+    "id": "8e0e91e4-f49c-47ca-a452-69c114cbc763",
+    "title": "from-unit-test-8",
+    "description": "from-unit-test",
+    "status": "OPEN"
+  },
+  {
+    "id": "8a15f319-14cb-4b05-87d3-d45b194cc456",
+    "title": "from-unit-test-9",
+    "description": "from-unit-test",
+    "status": "OPEN"
+  },
+  {
+    "id": "58d39c74-ff3d-4775-9ea8-2e6e988dbb05",
+    "title": "from-unit-test-9",
+    "description": "from-unit-test",
+    "status": "OPEN"
+  },
+  {
+    "id": "0fa7bfd5-e4e1-44dd-8aa0-53d3615c209d",
+    "title": "from-unit-test-0",
+    "description": "from-unit-test",
+    "status": "OPEN"
+  },
+  {
+    "id": "8373430b-44b4-40b0-8fed-9f288bffd455",
+    "title": "test",
+    "description": "test",
+    "status": "OPEN"
+  },
+  {
+    "id": "359e34e6-8619-4920-8592-7f51e401393e",
+    "title": "from-unit-test-8",
+    "description": "from-unit-test",
     "status": "OPEN"
   }
 ]
