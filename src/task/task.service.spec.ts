@@ -118,12 +118,21 @@ describe('TaskService', () => {
       expect(result.status).toEqual(task.status);
     });
 
-    it.only('should throw 404 when id is not found', () => {
+    it('should throw 404 when id is not found', () => {
       readMock.mockReturnValue(true);
       const id = 'asd';
       const status = TaskStatus.IN_PROGRESS;
       expect(() => service.updateTaskStatus(id, status)).toThrow(
         new NotFoundException(`Task with given ID: ${id}, not found`),
+      );
+    });
+
+    it('should throw 500 when error reading file', () => {
+      readMock.mockReturnValue(false);
+      const id = '882a751d-e541-464e-9ba2-4e2098f734c8';
+      const status = TaskStatus.IN_PROGRESS;
+      expect(() => service.updateTaskStatus(id, status)).toThrow(
+        InternalServerErrorException,
       );
     });
   });
